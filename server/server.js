@@ -3,18 +3,21 @@ const app = express();
 const path = require('path');
 const router = require('../server/router/Router');
 const mongoose = require('mongoose');
-const db_config = require('../config/database');
+const db_config = require('../config/_config');
 const db = mongoose.connection;
 
 // select the statics folder;
 app.use(express.static(path.join(__dirname, '../dist/Mine')));
 
 
-// handle the main route;
-app.get('/', (req, res) => {
+// // handle the main route;
+// app.get('/', (req, res) => {
+// 	res.sendFile('index.html');
+// });
+
+app.get('*', (req, res) => {
 	res.sendFile('index.html');
 });
-
 
 // connect to the mongodb server;
 mongoose.connect(db_config.database);
