@@ -10,11 +10,14 @@ const db = mongoose.connection;
 app.use(express.static(path.join(__dirname, '../dist/Mine')));
 
 
-// handle the main route;
-app.get('/', (req, res) => {
+// // handle the main route;
+// app.get('/', (req, res) => {
+// 	res.sendFile('index.html');
+// });
+
+app.get('*', (req, res) => {
 	res.sendFile('index.html');
 });
-
 
 // connect to the mongodb server;
 mongoose.connect(db_config.database);
