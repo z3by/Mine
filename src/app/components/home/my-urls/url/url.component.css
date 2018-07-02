@@ -1,0 +1,14 @@
+.profile-img {
+    max-width: 80px;
+}
+.url {
+    font-size: 15px;
+}
+h5 {
+    font-size: 2vw;
+}
+a {
+    margin: 30px 0 0 0;
+    text-decoration: none;
+    width: 33.3%;
+}

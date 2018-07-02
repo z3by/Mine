@@ -1,0 +1,50 @@
+<div class="container">
+    <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+      <div class="text-center mt-5">
+        <h2>
+          Add A URL To Mine :)
+        </h2>
+      </div>      
+        <mat-form-field class="wide">
+          <input 
+          type="url" 
+          name="url" 
+          ngModel 
+          matInput 
+          placeholder="paste URL here..."
+          required
+          url
+          ></mat-form-field>
+      <br>
+        <mat-form-field class="wide">
+          <textarea 
+          #desc="ngModel"
+          matInput 
+          placeholder="give it a nice description..." 
+          name="description" 
+          ngModel
+          required
+          minlength="30"
+          >
+        </textarea>
+        </mat-form-field>
+
+      <br>
+        <mat-form-field class="wide">
+          <mat-select 
+          placeholder="Select Category..." 
+          name="category" 
+          ngModel
+          required
+          >
+            <mat-option value="videos">Videos</mat-option>
+            <mat-option value="articles">Articles</mat-option>
+            <mat-option value="photos">Photos</mat-option>
+            <mat-option value="music">Music</mat-option>
+            <mat-option value="others">Others</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br>
+        <button mat-stroked-button type="submit">Add To Mine!</button>
+  </form>
+</div>

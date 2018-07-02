@@ -1,0 +1,14 @@
+li {
+    color: #93291E;
+    font-size: 2vw;
+}
+li:hover {
+    color: #ED213A;
+}
+/* .container {
+    position: fixed;
+    top: 80px;
+    width: 100%;
+    text-align: center; 
+    z-index: 1;
+} */
