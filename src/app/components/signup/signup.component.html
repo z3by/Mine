@@ -1,13 +1,18 @@
 <div class="container">
-<form>
+<form (submit)="onSubmit(form)" #form="ngForm">
     <div class="text-center mt-3">
       <h2>Welcome To Mine!</h2>
     </div>
-    <mat-form-field 
-      class="wide">
-      <input matInput
+    <mat-form-field class="wide">
+      <input 
+      matInput
       class="wide"
-      placeholder="Your Email">
+      placeholder="Your Email"
+      required
+      email
+      name="email"
+      type="email"
+      ngModel>
     </mat-form-field>
 
     <br>
@@ -16,7 +21,11 @@
     class="wide">
       <input 
       matInput
-      placeholder="Your Password">
+      placeholder="Your Password"
+      required
+      name="password"
+      type="password"
+      ngModel>
     </mat-form-field>
     <button type="submit" mat-stroked-button>Sign Up</button>
  </form>

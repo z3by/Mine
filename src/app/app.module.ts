@@ -19,6 +19,7 @@ import { DataService } from './services/dataService/data.service';
 import { RoutingModule } from './modules/routing/routing.module';
 import { MaterialModule } from './modules/material/material.module';
 import { UserAuthService } from './services/userAuth/user-auth.service';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -41,7 +42,8 @@ import { UserAuthService } from './services/userAuth/user-auth.service';
   imports: [
     BrowserModule,
     RoutingModule,
-    MaterialModule
+    MaterialModule,
+    HttpClientModule
   ],
   providers: [
     DataService,

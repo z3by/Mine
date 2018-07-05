@@ -109,12 +109,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _services_dataService_data_service__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./services/dataService/data.service */ "./src/app/services/dataService/data.service.ts");
 /* harmony import */ var _modules_routing_routing_module__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./modules/routing/routing.module */ "./src/app/modules/routing/routing.module.ts");
 /* harmony import */ var _modules_material_material_module__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./modules/material/material.module */ "./src/app/modules/material/material.module.ts");
+/* harmony import */ var _services_userAuth_user_auth_service__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./services/userAuth/user-auth.service */ "./src/app/services/userAuth/user-auth.service.ts");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
 
 
 
@@ -156,9 +160,13 @@ var AppModule = /** @class */ (function () {
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_0__["BrowserModule"],
                 _modules_routing_routing_module__WEBPACK_IMPORTED_MODULE_16__["RoutingModule"],
-                _modules_material_material_module__WEBPACK_IMPORTED_MODULE_17__["MaterialModule"]
+                _modules_material_material_module__WEBPACK_IMPORTED_MODULE_17__["MaterialModule"],
+                _angular_common_http__WEBPACK_IMPORTED_MODULE_19__["HttpClientModule"]
             ],
-            providers: [_services_dataService_data_service__WEBPACK_IMPORTED_MODULE_15__["DataService"]],
+            providers: [
+                _services_dataService_data_service__WEBPACK_IMPORTED_MODULE_15__["DataService"],
+                _services_userAuth_user_auth_service__WEBPACK_IMPORTED_MODULE_18__["UserAuthService"]
+            ],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_2__["AppComponent"]]
         })
     ], AppModule);
@@ -977,7 +985,7 @@ module.exports = "  .wide {\n    width: 100%;\n  }"
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n<form>\n    <div class=\"text-center mt-3\">\n      <h2>Welcome To Mine!</h2>\n    </div>\n    <mat-form-field \n      class=\"wide\">\n      <input matInput\n      class=\"wide\"\n      placeholder=\"Your Email\">\n    </mat-form-field>\n\n    <br>\n\n    <mat-form-field \n    class=\"wide\">\n      <input \n      matInput\n      placeholder=\"Your Password\">\n    </mat-form-field>\n    <button type=\"submit\" mat-stroked-button>Sign Up</button>\n </form>\n</div>"
+module.exports = "<div class=\"container\">\n<form (submit)=\"onSubmit(form)\" #form=\"ngForm\">\n    <div class=\"text-center mt-3\">\n      <h2>Welcome To Mine!</h2>\n    </div>\n    <mat-form-field class=\"wide\">\n      <input \n      matInput\n      class=\"wide\"\n      placeholder=\"Your Email\"\n      required\n      email\n      name=\"email\"\n      type=\"email\"\n      ngModel>\n    </mat-form-field>\n\n    <br>\n\n    <mat-form-field \n    class=\"wide\">\n      <input \n      matInput\n      placeholder=\"Your Password\"\n      required\n      name=\"password\"\n      type=\"password\"\n      ngModel>\n    </mat-form-field>\n    <button type=\"submit\" mat-stroked-button>Sign Up</button>\n </form>\n</div>"
 
 /***/ }),
 
@@ -992,6 +1000,7 @@ module.exports = "<div class=\"container\">\n<form>\n    <div class=\"text-cente
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SignupComponent", function() { return SignupComponent; });
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _services_userAuth_user_auth_service__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../services/userAuth/user-auth.service */ "./src/app/services/userAuth/user-auth.service.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1002,8 +1011,10 @@ var __metadata = (undefined && undefined.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
 var SignupComponent = /** @class */ (function () {
-    function SignupComponent() {
+    function SignupComponent(userAuth) {
+        this.userAuth = userAuth;
         this.countries = ['syria', 'jordan', 'lebanon', 'egypt'];
     }
     SignupComponent.prototype.ngOnInit = function () {
@@ -1013,13 +1024,17 @@ var SignupComponent = /** @class */ (function () {
             return arrayCountry.includes(country.toLowerCase());
         });
     };
+    SignupComponent.prototype.onSubmit = function (form) {
+        this.userAuth.signUpNewUser(form.value)
+            .subscribe(function (res) { return console.log(res); }, function (err) { return console.log(err); });
+    };
     SignupComponent = __decorate([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             selector: 'app-signup',
             template: __webpack_require__(/*! ./signup.component.html */ "./src/app/components/signup/signup.component.html"),
             styles: [__webpack_require__(/*! ./signup.component.css */ "./src/app/components/signup/signup.component.css")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [_services_userAuth_user_auth_service__WEBPACK_IMPORTED_MODULE_1__["UserAuthService"]])
     ], SignupComponent);
     return SignupComponent;
 }());
@@ -1262,6 +1277,49 @@ var DataService = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], DataService);
     return DataService;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/userAuth/user-auth.service.ts":
+/*!********************************************************!*\
+  !*** ./src/app/services/userAuth/user-auth.service.ts ***!
+  \********************************************************/
+/*! exports provided: UserAuthService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UserAuthService", function() { return UserAuthService; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (undefined && undefined.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var UserAuthService = /** @class */ (function () {
+    function UserAuthService(http) {
+        this.http = http;
+    }
+    UserAuthService.prototype.signUpNewUser = function (userInfo) {
+        return this.http.post('/users/signup', userInfo);
+    };
+    UserAuthService = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Injectable"])({
+            providedIn: 'root'
+        }),
+        __metadata("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__["HttpClient"]])
+    ], UserAuthService);
+    return UserAuthService;
 }());
 
 

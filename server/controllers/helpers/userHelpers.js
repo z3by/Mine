@@ -5,24 +5,25 @@ const mongoose = require('mongoose');
 
 // add new user to the database;
 module.exports.signUpNewUser = (user, cb) => {
-	// hash the user password;
-	const password = user.password;
-	const modelInstance = new UserAuthModel(userHashed);
-
-	modelInstance.save((err, createdUser) => {
-		if(err) {
-			cb(err);
-		} else {
-			cb(null, createdUser);
-		}
-	});
-};
-
-// hash the password 
-const hasher = (password) => {
+ // this function just hashes the password;
 	bcrypt.genSalt(config.saltRounds, function(err, salt) {
-		bcrypt.hash(password, salt, function(err, hash) {
-			return hash;
+		bcrypt.hash(user['password'], salt, function(err, hash) {
+			if (err) {
+				cb(err);
+			} else {
+				// save the user info after hashing the password;
+				user.password = hash;
+				UserAuthModel.create(user, (err, createdUser) => {
+					if (err) {
+						cosnole.log(err);
+						cb(err);
+					} else {
+						cb(createdUser);
+					}
+				});
+			}
 		});
   	});
+
 };
+
