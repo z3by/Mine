@@ -48,7 +48,7 @@ app.use('/users', usersRouter);
 
 
 // define the server port and connect to it;
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
 	console.log(`mine server is connected on port ${ PORT }`);
 });

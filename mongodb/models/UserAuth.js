@@ -2,8 +2,16 @@ const mongoose = require('mongoose');
 
 // define the user auth schema;
 const userSchema = mongoose.Schema({
-	email: String,
-	password: String,
+	email: {
+		type: String,
+		unique: true,
+		required: true
+	},
+	password: {
+		type: String,
+		unique: true,
+		required: true
+	}
 });
 
 

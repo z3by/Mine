@@ -18,6 +18,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { DataService } from './services/dataService/data.service';
 import { RoutingModule } from './modules/routing/routing.module';
 import { MaterialModule } from './modules/material/material.module';
+import { UserAuthService } from './services/userAuth/user-auth.service';
 
 
 
@@ -42,7 +43,10 @@ import { MaterialModule } from './modules/material/material.module';
     RoutingModule,
     MaterialModule
   ],
-  providers: [DataService],
+  providers: [
+    DataService,
+    UserAuthService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
