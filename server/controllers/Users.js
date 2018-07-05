@@ -14,3 +14,17 @@ exports.sign_up = (req, res) => {
 		}
 	});
 };
+
+
+exports.log_in = (req, res) => {
+	let user = req.body;
+	userHelpers.login(user, (err, valid) => {
+		if (err) {
+			console.log(err);
+			res.send(err);
+		} else {
+			console.log(valid);
+			res.send(valid);
+		}
+	});
+};

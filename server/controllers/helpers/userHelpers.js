@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 
 // add new user to the database;
 module.exports.signUpNewUser = (user, cb) => {
- // this function just hashes the password;
+// this function just hashes the password;
 	bcrypt.genSalt(config.saltRounds, function(err, salt) {
 		bcrypt.hash(user['password'], salt, function(err, hash) {
 			if (err) {
@@ -27,3 +27,29 @@ module.exports.signUpNewUser = (user, cb) => {
 
 };
 
+
+module.exports.login = (user, cb) => {
+	const userInputPassword = user.password;
+	const userInputEmail = user.email;
+	// search for the user input in the database;
+	UserAuthModel.findOne({
+		email: userInputEmail
+	}, (err, found) => {
+		if (err) {
+			cb(err);
+		} else {
+			// if the user is not founded;
+			if (!found) {
+				cb('user not found');
+			} else {
+				bcrypt.compare(userInputPassword, found.password, (err, match) => {
+					if (err) {
+						cb(err);
+					} else {
+						cb(found);
+					}
+				});
+			}
+		};
+	});
+};
