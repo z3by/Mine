@@ -1,0 +1,20 @@
+<div class="container">
+  <form>
+    <div class="text-center mt-3">
+      <h2>Welcome To Mine!</h2>
+    </div>
+
+    <mat-form-field class="wide">
+      <input matInput class="wide" placeholder="Your Email" required email name="email" type="email" [(ngModel)]="user.email">
+    </mat-form-field>
+
+    <mat-form-field class="wide">
+      <input matInput placeholder="Your Password" required name="password" type="password" [(ngModel)]="user.password">
+    </mat-form-field>
+
+    <button (click)="onSubmit()" mat-stroked-button>Login</button>
+    <span class="row">
+      <p class="col">if you don't have an account you can <a class="text-primary" routerLink="/signup">Signup</a></p>
+    </span>
+  </form>
+</div>

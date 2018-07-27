@@ -9,10 +9,12 @@ import { FriendComponent } from '../../components/home/friends/friend/friend.com
 import { MyUrlsComponent } from '../../components/home/my-urls/my-urls.component';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../../services/auth-guard/auth.guard';
+import { LoginComponent } from '../../components/login/login.component';
 
 
   const appRouts: Routes = [
     { path: 'signup', component: SignupComponent },
+    { path: 'login', component: LoginComponent },
     { path: '', component: HomeComponent, canActivate: [ AuthGuard ] },
     { path: 'add', component: AddComponent, canActivate: [ AuthGuard ] },
     { path: 'profile', component: ProfileComponent, canActivate: [ AuthGuard ] },

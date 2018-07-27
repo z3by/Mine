@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { UserAuthService } from '../../services/userAuth/user-auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -13,7 +14,7 @@ export class SignupComponent implements OnInit {
   panelOpenState: boolean;
 
 
-  constructor(private userAuth: UserAuthService) { }
+  constructor(private userAuth: UserAuthService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -26,8 +27,7 @@ export class SignupComponent implements OnInit {
 
   onSubmit(form: NgForm) {
     this.userAuth.signUpNewUser(form.value)
-    .subscribe(res => console.log(res),
-      err => console.log(err));
+    .subscribe(res => console.log(res), err => console.log(err));
   }
 
 }
