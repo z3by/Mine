@@ -30,5 +30,5 @@ const UrlSchema = Schema({
 	}
 });
 
-const Url = mongoose.model('Url', UrlSchema);
+const Url = mongoose.model('urls', UrlSchema);
 module.exports = Url;
