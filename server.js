@@ -10,10 +10,10 @@ const passport = require('passport');
 
 
 // routers
-const indexRouter = require('./routes/routes/index');
-const usersRouter = require('./routes/routes/users');
-const porfileRouter = require('./routes/routes/profile');
-const postsRouter = require('./routes/routes/posts');
+const indexRouter = require('./server/routes/index');
+const usersRouter = require('./server/routes/users');
+const porfileRouter = require('./server/routes/profile');
+const postsRouter = require('./server/routes/posts');
 
 
 // connect to the mongodb server;
