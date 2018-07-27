@@ -1,15 +1,15 @@
-const Post = require('../../models/Post');
+const Url = require('../../mongodb/models/Url');
 
-// create new post
-module.exports.createPost = (req, res) => {
-	const post = {};
-	post.text = req.body.text;
-	post.user = req.user.id;
-	post.avatar = req.user.avatar;
-	post.name = req.user.username;
+// create new url
+module.exports.createUrl = (req, res) => {
+	const url = {};
+	url.text = req.body.text;
+	url.user = req.user.id;
+	url.avatar = req.user.avatar;
+	url.name = req.user.username;
 
-	Post
-		.create(post)
+	Url
+		.create(url)
 		.then(added => {
 			res.send(added);
 		})
@@ -20,12 +20,12 @@ module.exports.createPost = (req, res) => {
 };
 
 
-// edit exist post
-module.exports.updatePost = (req, res) => {
-	const post = req.body;
-	console.log(post);
-	Post
-		.findByIdAndUpdate(post._id, {text: post.text})
+// edit exist url
+module.exports.updateUrl = (req, res) => {
+	const url = req.body;
+	console.log(url);
+	Url
+		.findByIdAndUpdate(url._id, {text: url.text})
 		.then(updated => {
 			res.send(updated);
 		})
@@ -37,12 +37,12 @@ module.exports.updatePost = (req, res) => {
 
 
 
-// REMINDER : needs refactor to allow the post owner only to delete it =======================?????
-// delete one post
-module.exports.deletePost = (req, res) => {
+// REMINDER : needs refactor to allow the url owner only to delete it =======================?????
+// delete one url
+module.exports.deleteUrl = (req, res) => {
 	const id = req.params.id;
 
-	Post
+	Url
 		.findByIdAndRemove(id)
 		.then(removed => res.send(removed))
 		.catch(err => {
@@ -51,11 +51,11 @@ module.exports.deletePost = (req, res) => {
 		});
 };
 
-// retrieve one post
-module.exports.retrievePost = (req, res) => {
+// retrieve one url
+module.exports.retrieveUrl = (req, res) => {
 	const id = req.params.id;
 	
-	Post
+	Url
 		.findById(id)
 		.then(found => res.send(found))
 		.catch(err => {
@@ -65,12 +65,12 @@ module.exports.retrievePost = (req, res) => {
 };
 
 
-// retrieve all the posts for one user
-module.exports.retrieveUserPosts = (req, res) => {
+// retrieve all the urls for one user
+module.exports.retrieveUserUrls = (req, res) => {
 	const user = req.params.user;
-	Post.find({user: user })
+	Url.find({user: user })
 		.sort({ date: -1 })
-		.then(posts => res.send(posts))
+		.then(urls => res.send(urls))
 		.catch(err => {
 			console.log(err);
 			res.sendStatus(404);
@@ -79,21 +79,21 @@ module.exports.retrieveUserPosts = (req, res) => {
 
 
 
-// toggle the like for one post;
+// toggle the like for one url;
 module.exports.toggleLike = (req, res) => {
 	const user = req.user.id;
 	const id = req.params.id;
 
-	Post
+	Url
 		.findById(id)
-		.then(post => {
-			if (!post.likes.includes(user)) {
-				Post
-					.update(post, { $push: { likes: user }})
+		.then(url => {
+			if (!url.likes.includes(user)) {
+				Url
+					.update(url, { $push: { likes: user }})
 					.then(liked => res.send(liked));
 			} else {
-				Post
-					.update(post, { $pull: { likes: user } })
+				Url
+					.update(url, { $pull: { likes: user } })
 					.then(unliked => res.send(unliked));
 			}
 		})
@@ -112,11 +112,11 @@ module.exports.createComment = (req, res) => {
 
 	comment.user = req.user.id;
 
-	Post
+	Url
 		.findById(id)
-		.then(post => {
-			Post
-				.update(post, { $push: { comments: comment } })
+		.then(url => {
+			Url
+				.update(url, { $push: { comments: comment } })
 				.then(added => res.send(added));
 		})
 		.catch(() => res.sendStatus(404));
@@ -126,16 +126,16 @@ module.exports.createComment = (req, res) => {
 
 // delete comment;
 module.exports.deleteComment = (req, res) => {
-	const postID = req.params.post;
+	const urlID = req.params.url;
 	const commentID = req.params.comment;
 	
-	Post
-		.findById(postID)
-		.then(post => {
-			post.comments = post.comments.filter(comment => {
+	Url
+		.findById(urlID)
+		.then(url => {
+			url.comments = url.comments.filter(comment => {
 				return comment.id !== commentID;
 			});
-			post.save()
+			url.save()
 				.then(added => res.send(added));
 		})
 		.catch(() => res.sendStatus(404));

@@ -1,4 +1,4 @@
-const Profile = require('../../models/Profile');
+const Profile = require('../../mongodb/models/Profile');
 const validator = require('../../validators/profile');
 
 // GET /profile controller;

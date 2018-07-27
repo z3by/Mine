@@ -4,7 +4,7 @@ const postsController = require('../controllers/postsCtrl');
 
 /* GET users listing. */
 router.get('/', function(req, res) {
-  res.send('posts');
+	res.send('posts');
 });
 
 
