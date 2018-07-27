@@ -8,16 +8,17 @@ import { FriendsComponent } from '../../components/home/friends/friends.componen
 import { FriendComponent } from '../../components/home/friends/friend/friend.component';
 import { MyUrlsComponent } from '../../components/home/my-urls/my-urls.component';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from '../../services/auth-guard/auth.guard';
 
 
   const appRouts: Routes = [
     { path: 'signup', component: SignupComponent },
-    { path: '', component: HomeComponent },
-    { path: 'add', component: AddComponent },
-    { path: 'profile', component: ProfileComponent },
-    { path: 'friends', component: FriendsComponent },
-    { path: 'friends/:id', component: FriendComponent },
-    { path: 'myurls', component: MyUrlsComponent }
+    { path: '', component: HomeComponent, canActivate: [ AuthGuard ] },
+    { path: 'add', component: AddComponent, canActivate: [ AuthGuard ] },
+    { path: 'profile', component: ProfileComponent, canActivate: [ AuthGuard ] },
+    { path: 'friends', component: FriendsComponent, canActivate: [ AuthGuard ] },
+    { path: 'friends/:id', component: FriendComponent, canActivate: [ AuthGuard ] },
+    { path: 'myurls', component: MyUrlsComponent, canActivate: [ AuthGuard ] }
   ];
 
 

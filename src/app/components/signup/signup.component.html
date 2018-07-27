@@ -1,32 +1,25 @@
 <div class="container">
-<form (submit)="onSubmit(form)" #form="ngForm">
+  <form (submit)="onSubmit(form)" #form="ngForm">
     <div class="text-center mt-3">
       <h2>Welcome To Mine!</h2>
     </div>
     <mat-form-field class="wide">
-      <input 
-      matInput
-      class="wide"
-      placeholder="Your Email"
-      required
-      email
-      name="email"
-      type="email"
-      ngModel>
+      <input matInput class="wide" placeholder="Your Username" required name="username" type="text" ngModel>
     </mat-form-field>
 
     <br>
-
-    <mat-form-field 
-    class="wide">
-      <input 
-      matInput
-      placeholder="Your Password"
-      required
-      name="password"
-      type="password"
-      ngModel>
+    <mat-form-field class="wide">
+      <input matInput class="wide" placeholder="Your Email" required email name="email" type="email" ngModel>
     </mat-form-field>
+
+    <mat-form-field class="wide">
+      <input matInput placeholder="Your Password" required name="password" type="password" ngModel>
+    </mat-form-field>
+
+    <mat-form-field class="wide">
+      <input matInput placeholder="Confirm Your Password" required name="password2" type="password" ngModel>
+    </mat-form-field>
+
     <button type="submit" mat-stroked-button>Sign Up</button>
- </form>
+  </form>
 </div>
