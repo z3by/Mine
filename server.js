@@ -1,25 +1,29 @@
 const express = require('express');
 const app = express();
-const usersRouter = require('./server/router/users');
 const mongoose = require('mongoose');
 const db_config = require('./config/_config');
 const db = mongoose.connection;
 const bodyParser = require('body-parser');
 const path = require('path');
+const passport = require('passport');
+
+
+
+// routers
+const indexRouter = require('./routes/routes/index');
+const usersRouter = require('./routes/routes/users');
+const porfileRouter = require('./routes/routes/profile');
+const postsRouter = require('./routes/routes/posts');
 
 
 // connect to the mongodb server;
 mongoose.connect(db_config.database);
 
 
-// select the static folder
-app.use(express.static(path.join(__dirname, '/dist/Mine/')));
-
-// handle the main route;
-app.get('/', (req, res) => {
-	res.sendFile('index.html');
-});
-
+// initialize passport;
+app.use(passport.initialize());
+// config passport;
+require('./config/passport')(passport);
 
 
 // body parser settings;
@@ -31,6 +35,24 @@ app.use(bodyParser.urlencoded({
 // parse application/json
 app.use(bodyParser.json());
  
+
+// select the static folder
+app.use(express.static(path.join(__dirname, '/dist/Mine/')));
+
+// the unprotected routes;
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
+
+
+// use the passport jwt authentication
+app.use(passport.authenticate('jwt', {session: false}));
+
+
+// the protected routers;
+app.use('/profile', porfileRouter);
+app.use('/posts', postsRouter);
+
+
 
 
 //  log when the mongodb server is connected or not;
