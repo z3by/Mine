@@ -2,7 +2,7 @@ const User = require('../../mongodb/models/User');
 const bcrypt = require('bcryptjs');
 const gravatar = require('gravatar');
 const jwt = require('jsonwebtoken');
-const config = require('../../config/keys');
+const config = require('../../config/_config');
 
 // load input validators;
 const registerValidator = require('../../validators/register');

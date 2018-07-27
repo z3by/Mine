@@ -10,27 +10,27 @@ router.get('/', function(req, res) {
 
 // @route   POST /posts/post
 // @desc    create new post
-router.post('/post', postsController.createPost);
+router.post('/post', postsController.createUrl);
 
 
 // @route   PUT /posts/post
 // @desc    edit one post
-router.put('/post', postsController.updatePost);
+router.put('/post', postsController.updateUrl);
 
 
 // @route   DELETE /posts/post:id
 // @desc    delete post
-router.delete('/post/:id', postsController.deletePost);
+router.delete('/post/:id', postsController.deleteUrl);
 
 
 // @route   GET /posts/psot/:id
 // @desc    retrieve one post
-router.get('/post/:id', postsController.retrievePost);
+router.get('/post/:id', postsController.retrieveUrl);
 
 
 // @route   GET /posts/:user
 // @desc    retrieve all the posts for one user
-router.get('/:user', postsController.retrieveUserPosts);
+router.get('/:user', postsController.retrieveUserUrls);
 
 
 // @route   GET /posts/like/
